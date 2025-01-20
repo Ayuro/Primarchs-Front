@@ -1,32 +1,21 @@
-<p>... You should connect yourself</p>
+<p>... you must be identified</p>
 
-<form [formGroup]="form" (ngSubmit)="sendData()">
-    <div class="form-control">
-      <label
-        >Username<br />
-        <input
-          type="text"
-          formControlName="userName"
-          placeholder="Votre nom..."
-        />
-      </label>
-      @if(userName.touched && userName.errors) {
-        @if(userName.touched &&
-      userName.errors['required']) {
-      <p>Vous devez saisir un nom d'utilisateur</p>
-      } @if(userName.touched && userName.errors['minlength']) {
-      <p>Votre nom d'utilisateur doit comporter au moins 4 caractères</p>
-      } }
-    </div>
-  
-    <div class="form-control">
-      <label>
-          Password<br/>
-          <input type="password" formControlName="password" placeholder="Password"/>
-      </label>
-      @if(password.touched && password.errors) {
-          <p>Vous avez saisi un mot de passe invalid, celui-ci doit contenir un minimum de 6 charactères.</p>
-      }
-    </div>
-    <button [disabled]="form.invalid">Envoyer</button>
-  </form>
+<form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+  <div class="form-control">
+    <label>
+      Username<br />
+      <input type="text" formControlName="userName" />
+    </label>
+  </div>
+  <div class="form-control">
+    <label>
+      Mot de passe<br />
+      <input type="password" formControlName="password" />
+    </label>
+  </div>
+
+  <button [disabled]="loginForm.invalid">Connexion</button>
+  @if(errorMessage) {
+  <div>{{ errorMessage }}</div>
+  }
+</form>

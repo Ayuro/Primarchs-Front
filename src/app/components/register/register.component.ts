@@ -1,6 +1,6 @@
 import { JsonPipe } from '@angular/common';
 import { Component } from '@angular/core';
-import { AuthService } from '../../services/user-registration.service';
+import { AuthService } from '../../services/auth.service';
 import {
   FormBuilder,
   FormControl,
@@ -11,13 +11,13 @@ import {
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [ReactiveFormsModule, JsonPipe],
+  imports: [ReactiveFormsModule],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
 })
 
 export class RegisterComponent {
-  email: string = '';
+  userName: string = '';
   password: string = '';
   errorMessage: string = '';
 
@@ -31,40 +31,24 @@ export class RegisterComponent {
   constructor(private authService: AuthService) {}
 
   onRegister() {
-    this.authService.registerUser({ email: this.email, password: this.password })
-      .subscribe({
-        next: (response) => {
-          console.log('User registered successfully:', response);
-        },
-        error: (error) => {
-          this.errorMessage = error.error.message;
-          console.error('Registration error:', error);
-        }
-      });
+    if (this.form.valid) {
+      const userName = this.form.value.userName!;
+      const password = this.form.value.password!;
+  
+      this.authService.registerUser({ userName, password })
+        .subscribe({
+          next: (response) => {
+            console.log('User registered successfully:', response);
+            this.form.reset();
+          },
+          error: (error) => {
+            this.errorMessage = error.error.message;
+            console.error('Registration error:', error);
+            this.form.reset();
+          }
+        });
+    } else {
+      console.warn('Form is invalid');
+    }
   }
 }
-
-// export class RegisterComponent {
-
-//   formBuilder = new FormBuilder().nonNullable;
-
-//   form = this.formBuilder.group({
-//     userName: new FormControl('', [Validators.required, Validators.minLength(4),]),
-//     password: new FormControl('', [Validators.required, Validators.minLength(6),]),
-//   });
-
-//   sendData() {
-//     if (this.form.valid) {
-//       const data = { ...this.form.value, page: 'register' };
-//       this.form.reset();
-//     }
-//   }
-
-//   get userName() {
-//     return this.form.controls.userName;
-//   }
-
-//   get password() {
-//     return this.form.controls.password;
-//   }
-// }
