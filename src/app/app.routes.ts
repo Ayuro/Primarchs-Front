@@ -4,6 +4,7 @@ import { HomeComponent } from './components/home/home.component';
 import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
 import { WallComponent } from './components/wall/wall.component';
+import { FriendWallComponent } from './components/friend-wall/friend-wall.component';
 import { AuthGuard } from './guard/auth.guard';
 
 export const routes: Routes = [
@@ -23,5 +24,9 @@ export const routes: Routes = [
         path: 'wall',
         component: WallComponent,
         canActivate: [AuthGuard],
+    },
+    {
+        path: 'wall/:id',
+        component: FriendWallComponent
     }
 ];

@@ -7,6 +7,7 @@ import { jwtDecode } from 'jwt-decode';
 @Injectable({
   providedIn: 'root'
 })
+
 export class AuthService {
   private apiUrl = 'http://localhost:1986/api';
   private currentUserSubject = new BehaviorSubject<{ userName: string; userId: string } | null>(null);
@@ -49,7 +50,18 @@ export class AuthService {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.get(`${this.apiUrl}/protected`, { headers });
   }
+  
+  navigateToWall(userId: string): void {
+    this.router.navigate([`/wall/${userId}`])
+  }
+
+  getLoggedInUserId(): string | null {
+    const currentUser = this.currentUserSubject.getValue();
+    return currentUser ? currentUser.userId : null; // Return userId if available, else null
+  }
 }
+
+
 function jwt_decode(token: any) {
   throw new Error('Function not implemented.');
 }

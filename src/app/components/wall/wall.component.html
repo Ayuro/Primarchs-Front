@@ -1,1 +1,12 @@
 <p>... we know you {{ userName }}</p>
+
+<input type="text" [(ngModel)]="searchQuery" placeholder="Search users..." (input)="onSearch()" />
+<div *ngIf="searchResults.length">
+  <ul>
+    <li *ngFor="let user of searchResults">
+      {{ user.userName }}
+      <button *ngIf="!user.isFriend" (click)="sendFriendRequest(user._id)">Add Friend</button>
+      <button *ngIf="user.isFriend" (click)="viewFriendWall(user._id)">View Wall</button>
+    </li>
+  </ul>
+</div>
