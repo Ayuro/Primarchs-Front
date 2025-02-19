@@ -1,5 +1,9 @@
 <p>... we know you {{ userName }}</p>
 
+<button (click)="toProfile()">
+  Go to Profile
+</button>
+<br/>
 <input type="text" [(ngModel)]="searchQuery" placeholder="Search users..." (input)="onSearch()" />
 <div *ngIf="searchResults.length">
   <ul>
@@ -9,4 +13,34 @@
       <button *ngIf="user.isFriend" (click)="viewFriendWall(user._id)">View Wall</button>
     </li>
   </ul>
+</div>
+
+<!-- Friend Requests Section -->
+<div>
+  <h3>Friend Requests</h3>
+  <ul>
+    <li *ngFor="let request of friendRequests">
+      {{ request.userName }}
+      <button (click)="acceptFriendRequest(request._id)">Accept</button>
+      <button (click)="rejectFriendRequest(request._id)">Reject</button>
+    </li>
+  </ul>
+</div>
+
+<div class="wall-container">
+  <h2>{{ userName }}'s Wall</h2>
+
+  <!-- Input box for posting messages -->
+  <textarea [(ngModel)]="newMessage" placeholder="Write a message..."></textarea>
+  <button (click)="postMessage()">Post</button>
+
+  <hr>
+
+  <!-- Display posted messages -->
+  <div *ngFor="let post of posts">
+    <div class="post">
+      <p><strong>{{ post.userId?.userName }}</strong>: {{ post.content }}</p>
+      <small>{{ post.createdAt | date:'short' }}</small>
+    </div>
+  </div>
 </div>

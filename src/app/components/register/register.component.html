@@ -7,15 +7,69 @@
       <input
         type="text"
         formControlName="userName"
+        placeholder="Votre pseudo..."
+      />
+    </label>
+  </div>
+
+  <div class="form-control">
+    <label
+      >Firstname<br />
+      <input
+        type="text"
+        formControlName="firstName"
+        placeholder="Votre prénom..."
+      />
+    </label>
+  </div>
+
+  <div class="form-control">
+    <label
+      >Lastname<br />
+      <input
+        type="text"
+        formControlName="lastName"
         placeholder="Votre nom..."
       />
     </label>
   </div>
 
   <div class="form-control">
+    <label>Gender:</label>
+    <select formControlName="gender">
+      <option value="male">Male</option>
+      <option value="female">Female</option>
+    </select>
+  </div>
+
+  <div class="form-control">
+    <label
+      >Age<br />
+      <input 
+        type="text"
+        formControlName="age"
+        placeholder="Votre age ..."
+      />
+    </label>
+  </div>
+
+  <div class="form-control">
+    <label>Email<br/>  
+      <input 
+        type="email"
+        formControlName="email"
+        placeholder="Email"
+      >
+    </label>
+  </div>
+
+  <div class="form-control">
     <label>
         Password<br/>
-        <input type="password" formControlName="password" placeholder="Password"/>
+        <input 
+          type="password"
+          formControlName="password"
+          placeholder="Password"/>
     </label>
   </div>
   <button [disabled]="form.invalid">Envoyer</button>

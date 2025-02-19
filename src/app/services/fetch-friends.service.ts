@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
+
 export class FetchFriendsService {
   private apiUrl = 'http://localhost:1986/api';
 

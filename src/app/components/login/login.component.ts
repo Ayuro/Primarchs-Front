@@ -1,5 +1,5 @@
 import { JsonPipe } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -33,6 +33,7 @@ export class LoginComponent {
   constructor(private authService: AuthService, private router: Router) {}
 
   onLogin() {
+
     if (this.loginForm.valid) {
       const userName = this.loginForm.value.userName!;
       const password = this.loginForm.value.password!;
@@ -40,7 +41,6 @@ export class LoginComponent {
       this.authService.loginUser({ userName, password})
         .subscribe({
           next: (response) => {
-            console.log("Login successful", response);
             localStorage.setItem('token', response.token);
             this.errorMessage = '';
             this.router.navigate(['/', 'wall']);
@@ -48,7 +48,7 @@ export class LoginComponent {
           error: (error) => {
             this.errorMessage = error.error.message;
             console.error("Login error: ", error);
-          }
+          },
         });
     } else {
       console.warn("Form is invalid");

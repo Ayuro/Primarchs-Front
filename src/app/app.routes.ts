@@ -6,6 +6,9 @@ import { LoginComponent } from './components/login/login.component';
 import { WallComponent } from './components/wall/wall.component';
 import { FriendWallComponent } from './components/friend-wall/friend-wall.component';
 import { AuthGuard } from './guard/auth.guard';
+import { AboutComponent } from './components/about/about.component';
+import { LogoutComponent } from './components/logout/logout.component';
+import { ProfilComponent } from './components/profil/profil.component';
 
 export const routes: Routes = [
     {
@@ -28,5 +31,19 @@ export const routes: Routes = [
     {
         path: 'wall/:id',
         component: FriendWallComponent
-    }
+    },
+    {
+        path: 'about',
+        component: AboutComponent,
+    },
+    {
+        path: 'profil',
+        component: ProfilComponent,
+        canActivate: [AuthGuard],
+    },
+    {
+        path: 'logout',
+        component: LogoutComponent,
+        canActivate: [AuthGuard],
+    },
 ];

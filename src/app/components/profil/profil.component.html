@@ -1,0 +1,48 @@
+<div class="profil-container">
+  <h2>Your Profile</h2>
+
+  <div>
+    <button (click)="toWall()">Back to your wall</button>
+  </div>
+
+  <!-- Display the User Information -->
+  <ul>
+    <li><strong>Username:</strong> {{ user?.userName }} <button (click)="editProfile('userName')">Edit</button></li>
+    <li><strong>Email:</strong> {{ user?.email }} <button (click)="editProfile('email')">Edit</button></li>
+    <li><strong>First Name:</strong> {{ user?.firstName }} <button (click)="editProfile('firstName')">Edit</button></li>
+    <li><strong>Last Name:</strong> {{ user?.lastName }} <button (click)="editProfile('lastName')">Edit</button></li>
+    <li><strong>Gender:</strong> {{ user?.gender }} <button (click)="editProfile('gender')">Edit</button></li>
+    <li><strong>Age:</strong> {{ user?.age }} <button (click)="editProfile('age')">Edit</button></li>
+  </ul>
+
+  <!-- Form to Update User Information -->
+  <div *ngIf="isEditing">
+    <form [formGroup]="profilForm" (ngSubmit)="updateProfil()">
+      <label *ngIf="editableField === 'userName'">Username:</label>
+      <input *ngIf="editableField === 'userName'" type="text" formControlName="userName" />
+      
+      <label *ngIf="editableField === 'email'">Email:</label>
+      <input *ngIf="editableField === 'email'" type="email" formControlName="email" />
+      
+      <label *ngIf="editableField === 'firstName'">First Name:</label>
+      <input *ngIf="editableField === 'firstName'" type="text" formControlName="firstName" />
+      
+      <label *ngIf="editableField === 'lastName'">Last Name:</label>
+      <input *ngIf="editableField === 'lastName'" type="text" formControlName="lastName" />
+      
+      <label *ngIf="editableField === 'gender'">Gender:</label>
+      <select *ngIf="editableField === 'gender'" formControlName="gender">
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+      </select>
+      
+      <label *ngIf="editableField === 'age'">Age:</label>
+      <input *ngIf="editableField === 'age'" type="number" formControlName="age" />
+      
+      <button type="submit" [disabled]="profilForm.invalid">Save Changes</button>
+    </form>
+  </div>
+
+  <p *ngIf="successMessage" class="success">{{ successMessage }}</p>
+  <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
+</div>
